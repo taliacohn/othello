@@ -1,1 +1,1 @@
-# Reversi (also known as Othello)
+# Othello (also known as Reversi)
