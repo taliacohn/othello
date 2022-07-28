@@ -1,0 +1,79 @@
+@startuml Othello
+
+package Model <<rectangle>>{
+    class OthelloGame{
+        board
+        curr_player
+        change_player()
+        make_move()
+        is_valid_move(user_input)
+        check_winner(score)
+    }
+    class Board{
+        size
+        matrix
+        get_cell()
+        update_cells()
+    }
+    class Exception{
+        pass
+    }
+    class SaveGame{
+        pass
+    }
+    enum Player{
+        B
+        W 
+    }
+    class RobotPlayer{
+        pass
+    }
+    class HumanPlayer{
+        pass
+    }
+    class GameRules{
+        pass
+    }
+}
+package View <<rectangle>> {
+    abstract class BoardView{
+        board 
+        draw_board(size)
+    }
+    abstract class GameView{
+        game 
+        get_move()
+        draw_board()
+        display_winner(player)
+    }
+    class BoardConsoleView{
+        board 
+        draw_board()
+    }
+    class GameConsoleView{
+        game 
+        board_view
+        get_move()
+        draw_board()
+        display_winner()
+    }
+}
+package Controller <<rectangle>>{
+    class GameController{
+        model 
+        view
+        run_game()
+    }
+}
+OthelloGame *-- Board: contains >
+OthelloGame <... Player: uses >
+GameConsoleView <-- Gameview 
+BoardView <-- BoardConsoleView
+BoardConsoleView <-- Board: uses <
+OthelloGame <-- Board: uses <
+BoardView <-- Board 
+GameController *-- OthelloGame: contains >
+GameController *-- GameView: contains >
+GameView <-- OthelloGame
+GameConsoleView <-- OthelloGame
+
