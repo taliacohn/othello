@@ -9,10 +9,12 @@ class GameController:
   def run_game(self):    
     #scores=[0,0]
     self.model.place_initial_pieces()
-    while self.model.is_terminated(scores=[0,0]): 
+    while True: 
       self.view.draw_board()
       scores = self.model.calculate_score()
       self.view.display_score(scores)
+      if self.model.is_terminated(scores=[0,0]):
+        break
       curr_player = self.model.curr_player
       self.view.display_turn(curr_player)
       row, col = self.view.get_move()

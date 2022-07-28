@@ -1,4 +1,4 @@
-from pyexpat import model
+from view.game_console_view import GameConsoleView
 from model.board import Board
 from model.players import Players
 from datetime import datetime
@@ -111,16 +111,17 @@ class OthelloGame:
     def find_winner(self):
         score = self.calculate_score()
         if score[0] > score[1]:
-            self.winner = Players.X
+            self.winner = 'X'
         elif self.scores[1] > self.scores[0]:
-            self.winner = Players.O
+            self.winner = 'O'
         else:
-            self.winner = 3
+            self.winner = 'It\'s a tie!'
 
         return self.winner
 
     def write_results(self):
-        self.score = self.calculate_score
+        self.score = self.calculate_score()
+        self.sy
         today = datetime.now()
         time = today.strftime('%m/%d/%Y %H:%M:%S')
         self.results = f'Date and time of game: {time}'
