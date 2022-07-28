@@ -1,1 +1,0 @@
-Date and time of game: 07/28/2022 09:39:25 Winner of game: X Player X: {self.score[0]}, Player O: {self.score[1]}

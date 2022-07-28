@@ -122,9 +122,9 @@ class OthelloGame:
         self.score = self.calculate_score()
         today = datetime.now()
         time = today.strftime('%m/%d/%Y %H:%M:%S')
-        self.results = f'Date and time of game: {time} '
-        self.results += f'Winner of game: {self.winner} '
-        self.results += 'Player X: {self.score[0]}, Player O: {self.score[1]}'
+        self.results = f'Date and time of game: {time} | '
+        self.results += f'Winner of game: {self.winner} | '
+        self.results += f'Player X: {self.score[0]}, Player O: {self.score[1]}'
         
         return self.save_game.save_results(self.results)
         

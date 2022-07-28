@@ -5,7 +5,7 @@ class SaveGame:
         self.file_path = file_path
 
     def save_results(self, results):
-        with open(self.file_path, 'w') as f:
+        with open(self.file_path, 'a') as f:
             f.write(results)
 
 
