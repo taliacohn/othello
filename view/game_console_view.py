@@ -26,9 +26,9 @@ class GameConsoleView(GameView):
     self.board_view.draw_board()
 
   def display_winner(self, player, scores):
-    if player == Players.X:
+    if player == 'X':
       print(f'Player X wins by {scores[0] - scores[1]} points.')
-    elif player == Players.O:
+    elif player == 'O':
       print(f'Player O wins by {scores[1] - scores[0]} points.')
     else:
       print(f'The game ended in a tie. Both players have {scores[1]} points!')
