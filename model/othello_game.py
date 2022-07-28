@@ -1,4 +1,3 @@
-from view.game_console_view import GameConsoleView
 from model.board import Board
 from model.players import Players
 from datetime import datetime

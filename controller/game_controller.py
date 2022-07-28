@@ -13,7 +13,7 @@ class GameController:
       self.view.draw_board()
       scores = self.model.calculate_score()
       self.view.display_score(scores)
-      if self.model.is_terminated(scores=[0,0]):
+      if self.model.is_terminated(scores=[0,0]) == False:
         break
       curr_player = self.model.curr_player
       self.view.display_turn(curr_player)
