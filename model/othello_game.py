@@ -1,7 +1,7 @@
 from model.board import Board
 from model.players import Players
 from datetime import datetime
-from model.save_game import SaveGame
+from model.game_text_file import GameTextFile
 
 class OthelloGame:
     """This class represents the Othello game"""
@@ -12,7 +12,7 @@ class OthelloGame:
         self.board = Board(board_size)
         self.board_size = board_size
         self.curr_player = Players.X
-        self.save_game = SaveGame(file_path)
+        self.save_game = GameTextFile(file_path)
 
     def place_initial_pieces(self):
         return self.board.initial_position()
@@ -46,11 +46,11 @@ class OthelloGame:
 
     def is_valid_move(self, row, col, curr_player):
         """Returns False if invalid move, returns a list of pieces that should be changed"""
-        pieces_to_flip= []
+        pieces_to_change= []
         if curr_player == Players.X:
-            other_piece = Players.O
+            other_player = Players.O
         else:
-            other_piece = Players.X
+            other_player = Players.X
 
         if self.board.get_cell(row, col) != self.board.EMPTY_CELL or not self.is_on_board(row, col):
             return False
@@ -62,10 +62,10 @@ class OthelloGame:
             x, y = row, col
             x += x_direction
             y += y_direction
-            if not self.is_on_board(x, y):
-                continue
+            # if not self.is_on_board(x, y):
+            #     continue
             #continue while the other players pieces are in that line
-            while self.board.get_cell(x, y) == other_piece:
+            while self.is_on_board(x, y) and self.board.get_cell(x, y) == other_player:
                 x += x_direction
                 y += y_direction
                 if not self.is_on_board(x, y):
@@ -78,11 +78,11 @@ class OthelloGame:
                     y -= y_direction
                     if x == row and y == col:
                         break
-                    pieces_to_flip.append([x, y])
-        if len(pieces_to_flip) == 0: #not valid move if no pieces were changed 
+                    pieces_to_change.append([x, y])
+        if len(pieces_to_change) == 0: #not valid move if no pieces were changed 
             return False
 
-        return pieces_to_flip
+        return pieces_to_change
 
     def calculate_score(self):
         """Counts amount of pieces each player has on the board at the end of every turn"""
