@@ -17,14 +17,10 @@ class GameController:
         break
       curr_player = self.model.curr_player
       self.view.display_turn(curr_player)
-      try:
-        row, col = self.view.get_move()
-      except:
-        print('Enter two numbers separated by a comma. For example, \'3, 2\'.')
-        row, col = self.view.get_move()
+      row, col = self.view.get_move()
+
       while self.model.make_move(row, col, curr_player) == False:
-        print('Not a valid move. Pick again. Remember there needs to be a line between one of your pieces',
-            'and the piece you put down, with your opponent\'s piece(s) in between.')
+        self.view.invalid_move()
         row, col = self.view.get_move()
         
       self.model.change_player()
