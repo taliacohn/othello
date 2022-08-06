@@ -17,7 +17,7 @@ class GameConsoleView(GameView):
   def player_options(self):
     """Player inputs how many players - 1 vs 2 human players"""
     choice = -1
-    while 0 < choice > 3:
+    while 0 > choice < 3:
       try:
         choice = int(input('Select Game Mode: \n1. Player vs Player\n2. Player vs Simple Computer\n\
         3. Player vs Difficult Computer\n4. Rules\n 5. Exit game\nEnter your choice (1, 2, 3, 4, or 5): '))

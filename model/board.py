@@ -30,10 +30,10 @@ class Board:
   def new_board(self):
     for i in range(2, self.size):
       for j in range(2, self.size):
-        self.update_cell(i, j, ' ')
+        self.update_cell(i, j, 0)
     
     self.mat
-    self.initial_position()
+    
 
 
 
