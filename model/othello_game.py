@@ -8,7 +8,7 @@ from model.ai import AI
 class OthelloGame():
     """This class represents the Othello game, includes methods
     to run the game"""
-    DIRECTIONS = [[0,1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]]
+    #DIRECTIONS = [[0,1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]]
 
     def __init__(self, board_size=8, file_path="results_of_game.txt") -> None:
         self.board = Board(board_size)

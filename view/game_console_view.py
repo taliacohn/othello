@@ -21,8 +21,8 @@ class GameConsoleView(GameView):
     choice = -1
     while 0 > choice < 3:
       try:
-        choice = int(input('Select Game Mode: \n1. Player vs Player\n2. Player vs Simple Computer\
-        \n3. Player vs Difficult Computer\n4. Rules\n5. Exit game\nEnter your choice (1, 2, 3, 4, or 5): '))
+        choice = int(input('Select Game Mode: \n1. Player vs Player\n2. Player vs Simple Computer'
+        '\n3. Player vs Difficult Computer\n4. Rules\n5. Exit game\nEnter your choice (1, 2, 3, 4, or 5): '))
       except:
         print('Invalid option. Please enter 1, 2, 3, 4 or 5.')
     

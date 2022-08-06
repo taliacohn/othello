@@ -44,10 +44,10 @@ class GameController:
         board = self.view.draw_board()
         scores = self.model.rules.calculate_score()
         self.view.display_score(scores)
-        if self.model.rules.is_terminated(scores=[0,0]) == False:
+        curr_player = self.model.curr_player #gives 1 or 2 for symbol
+        if self.model.rules.is_terminated(curr_player, scores=[0,0]) == False:
           break
         
-        curr_player = self.model.curr_player #gives 1 or 2 for symbol
         self.view.display_turn(curr_player)
 
         if isinstance(player[curr_player-1], AI):
