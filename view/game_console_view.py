@@ -1,4 +1,4 @@
-from model.players import Players
+from model.symbols import Symbols
 from view.game_view import GameView
 from view.board_console_view import BoardConsoleView
 from model.othello_game import OthelloGame
@@ -11,6 +11,22 @@ class GameConsoleView(GameView):
     self.board_view = BoardConsoleView(game.board)
     self.game = game
 
+  def welcome_message(self):
+    print('Welcome to Reversi!')
+
+  def player_options(self):
+    """Player inputs how many players - 1 vs 2 human players"""
+    choice = -1
+    while 0 < choice > 3:
+      try:
+        choice = int(input('Select Game Mode: \n1. Player vs Player\n2. Player vs Simple Computer\n\
+        3. Player vs Difficult Computer\n4. Rules\n 5. Exit game\nEnter your choice (1, 2, 3, 4, or 5): '))
+      except:
+        print('Invalid option. Please enter 1, 2, 3, 4 or 5.')
+    
+  def invalid_choice(self):
+    print('Invalid option.')
+
   def display_score(self, scores):
     print(f'X score: {scores[0]} | O score: {scores[1]}\n')
 
@@ -18,10 +34,24 @@ class GameConsoleView(GameView):
     print(f'Player {self.symbols[curr_player]}: It\'s your turn.')
 
   def get_move(self):
-    s = input('Enter your move (row, col): ').split(',')
-    row, col = int(s[0]), int(s[1])
-    return row, col
+    """Asks player for next move. Provide feedback 
+    if incorrect move inputted."""
+    try:
+      s = input('Enter your move (row, col): ').split(',')
+      row, col = int(s[0]), int(s[1])
+      return row, col
+    except: 
+      print('Enter two numbers separated by a comma. For example, \'3, 2\'.')
+      return self.get_move()
 
+  def display_computer_turn(self):
+    print('The computer is thinking...')
+
+  def invalid_move(self):
+    """If player makes makes an invalid move"""
+    print('Not a valid move. Remember there needs to be a line between one of your pieces',
+            'and the piece you put down, with your opponent\'s piece(s) in between.')
+    
   def draw_board(self):
     self.board_view.draw_board()
 
@@ -33,3 +63,5 @@ class GameConsoleView(GameView):
     else:
       print(f'The game ended in a tie. Both players have {scores[1]} points!')
 
+  def display_exit_message(self):
+    print('Thanks for playing.')

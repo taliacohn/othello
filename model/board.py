@@ -1,5 +1,5 @@
 from pickle import EMPTY_DICT
-from model.players import Players
+from model.symbols import Symbols
 
 class Board:
   """Board and board size"""
@@ -19,13 +19,25 @@ class Board:
     """Starting position of initial 4 pieces on board"""
     split_board = self.size//2
     #Piece 1, player 1
-    self.update_cell(split_board, split_board, Players.X)
+    self.update_cell(split_board, split_board, Symbols.X)
     #Piece 1, player 2
-    self.update_cell(split_board, split_board+1, Players.O)
+    self.update_cell(split_board, split_board+1, Symbols.O)
     #Piece 2, player 1
-    self.update_cell(split_board+1, split_board+1, Players.X)
+    self.update_cell(split_board+1, split_board+1, Symbols.X)
     #Piece 2, player 2
-    self.update_cell(split_board+1, split_board, Players.O)
+    self.update_cell(split_board+1, split_board, Symbols.O)
+
+  def new_board(self):
+    for i in range(2, self.size):
+      for j in range(2, self.size):
+        self.update_cell(i, j, ' ')
+    
+    self.mat
+    self.initial_position()
+
+
+
+
 
 
 

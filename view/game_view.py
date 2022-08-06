@@ -7,6 +7,18 @@ class GameView(ABC):
         self.game = game
 
     @abstractmethod
+    def welcome_message(self):
+        pass
+
+    @abstractmethod
+    def player_options(self):
+        pass
+
+    @abstractmethod
+    def invalid_choice(self):
+        pass
+    
+    @abstractmethod
     def get_move(self):
         pass
 
@@ -25,3 +37,16 @@ class GameView(ABC):
     @abstractmethod
     def display_score(self, score):
         pass
+
+    @abstractmethod
+    def invalid_move(self):
+        pass
+
+    @abstractmethod
+    def display_exit_message(self):
+        pass
+
+    @abstractmethod
+    def display_computer_turn(self):
+        pass
+    
