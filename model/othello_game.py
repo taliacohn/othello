@@ -13,7 +13,6 @@ class OthelloGame():
     def __init__(self, board_size=8, file_path="results_of_game.txt") -> None:
         self.board = Board(board_size)
         self.board_size = board_size
-        self.curr_player = Symbols.X
         self.save_game = ResultsTextFile(file_path)
         self.rules = Rules(self.board)
         self.simple_ai = AI()

@@ -1,6 +1,5 @@
 from model.board import Board
 from model.symbols import Symbols
-
 import random
 
 class Rules:
@@ -10,6 +9,10 @@ class Rules:
     def __init__(self, board: Board, board_size=8) -> None:
         self.board = board
         self.board_size = board_size
+        if random.randint(0, 1) == 0:
+            self.curr_player = Symbols.X
+        else:
+            self.curr_player = Symbols.O
 
     def first_move(self):
         """Chooses which player makes the first move"""
@@ -33,8 +36,8 @@ class Rules:
         """Checks if move is valid based on current board. Returns False if no valid moves
         available on board or returns list of valid moves"""
         self.valid_moves = []
-        for x in range(1, self.board_size+1):
-            for y in range(1, self.board_size+1):
+        for x in range(1, self.board_size):
+            for y in range(1, self.board_size):
                 if self.is_valid_move(x, y, curr_player) != False:
                     if (x, y) not in self.valid_moves:
                         self.valid_moves.append([x,y])

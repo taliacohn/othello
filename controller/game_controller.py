@@ -36,7 +36,7 @@ class GameController:
         return False
       
       #initialize board
-      self.model.curr_player = self.model.rules.first_move() #which symbol goes first
+      self.model.rules.curr_player = self.model.rules.first_move() #which symbol goes first
       self.model.new_board()
       self.model.place_initial_pieces()
       
@@ -44,15 +44,15 @@ class GameController:
         board = self.view.draw_board()
         scores = self.model.rules.calculate_score()
         self.view.display_score(scores)
-        curr_player = self.model.curr_player #gives 1 or 2 for symbol
+        curr_player = self.model.rules.curr_player #gives 1 or 2 for symbol
         if self.model.rules.is_terminated(curr_player, scores=[0,0]) == False:
           break
         
         self.view.display_turn(curr_player)
 
-        if isinstance(player[curr_player-1], AI):
+        if isinstance(players[curr_player-1], AI):
           self.view.display_computer_turn()
-          row, col = self.simple_ai.ai_simple_move()
+          row, col = self.simple_ai.ai_simple_move(curr_player)
           self.model.rules.make_move(row, col, curr_player, board)
         else:
           row, col = self.view.get_move()

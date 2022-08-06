@@ -12,9 +12,9 @@ class GameConsoleView(GameView):
     self.game = game
 
   def welcome_message(self):
-    print('--------------------------------------------')
-    print('------------Welcome to Reversi!-------------')
-    print('--------------------------------------------')
+    print('-------------------------------------------')
+    print('------------Welcome to Reversi!------------')
+    print('-------------------------------------------')
 
   def player_options(self):
     """Player inputs how many players - 1 vs 2 human players"""
@@ -25,6 +25,7 @@ class GameConsoleView(GameView):
         '\n3. Player vs Difficult Computer\n4. Rules\n5. Exit game\nEnter your choice (1, 2, 3, 4, or 5): '))
       except:
         print('Invalid option. Please enter 1, 2, 3, 4 or 5.')
+    return choice
     
   def invalid_choice(self):
     print('Invalid option.')
@@ -47,7 +48,9 @@ class GameConsoleView(GameView):
       return self.get_move()
 
   def display_computer_turn(self):
+    print('---------------------------')
     print('The computer is thinking...')
+    input('Press enter to see computers move: ')
 
   def invalid_move(self):
     """If player makes makes an invalid move"""
