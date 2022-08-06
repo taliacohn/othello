@@ -36,15 +36,15 @@ class GameController:
         return False
       
       #initialize board
-      self.model.curr_player = self.model.first_move() #which symbol goes first
+      self.model.curr_player = self.model.rules.first_move() #which symbol goes first
       self.model.new_board()
       self.model.place_initial_pieces()
       
       while True: 
         board = self.view.draw_board()
-        scores = self.model.calculate_score()
+        scores = self.model.rules.calculate_score()
         self.view.display_score(scores)
-        if self.model.is_terminated(scores=[0,0]) == False:
+        if self.model.rules.is_terminated(scores=[0,0]) == False:
           break
         
         curr_player = self.model.curr_player #gives 1 or 2 for symbol
@@ -53,18 +53,18 @@ class GameController:
         if isinstance(player[curr_player-1], AI):
           self.view.display_computer_turn()
           row, col = self.simple_ai.ai_simple_move()
-          self.model.make_move(row, col, curr_player, board)
+          self.model.rules.make_move(row, col, curr_player, board)
         else:
           row, col = self.view.get_move()
 
-          while self.model.make_move(row, col, curr_player, board) == False:
+          while self.model.rules.make_move(row, col, curr_player, board) == False:
             self.view.invalid_move()
             row, col = self.view.get_move()
         
-        self.model.change_player()
+        self.model.rules.change_player()
 
       player = self.model.find_winner()
-      final_scores = self.model.calculate_score()
+      final_scores = self.model.rules.calculate_score()
       self.view.display_winner(player, final_scores)
       self.model.write_results()
    
