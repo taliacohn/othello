@@ -15,7 +15,7 @@ class OthelloGame():
         self.board_size = board_size
         self.curr_player = Symbols.X
         self.save_game = ResultsTextFile(file_path)
-        self.rules = Rules()
+        self.rules = Rules(self.board)
         self.simple_ai = AI()
 
     def new_board(self):

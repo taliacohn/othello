@@ -5,7 +5,7 @@ class Board:
   """Board and board size"""
   EMPTY_CELL = 0
 
-  def __init__(self, size) -> None:
+  def __init__(self, size=8) -> None:
     self.size = size
     self.mat = [[self.EMPTY_CELL] * size for _ in range(size)]
 

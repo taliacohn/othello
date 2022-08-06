@@ -7,7 +7,6 @@ from copy import deepcopy
 class AI(Player):
     def __init__(self, game_rules = Rules) -> None:
         self.game = game_rules
-        self.score = self.game.calculate_score()
         self.board = Board()
 
     def ai_simple_move(self, curr_player):
@@ -16,7 +15,7 @@ class AI(Player):
         for row, col in lst_of_moves:
             board_copy = deepcopy(self.board.mat)
             self.game.make_move(row, col, curr_player, board_copy)
-            score = self.score()
+            score = self.game.calculate_score()
             if score > highest_score:
                 move = [row, col]
                 highest_score = score
