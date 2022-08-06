@@ -16,7 +16,7 @@ class Rules:
 
     def first_move(self):
         """Chooses which player makes the first move"""
-        if random.randint(0, 1) == '0':
+        if random.randint(0, 1) == 0:
             return 1
         else:
             return 2
