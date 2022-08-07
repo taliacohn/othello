@@ -41,6 +41,7 @@ class GameController:
       self.model.place_initial_pieces()
       
       while True: 
+        self.view.display_empty_line()
         self.view.draw_board(self.model.board.mat)
         scores = self.model.rules.calculate_score()
         self.view.display_score(scores)

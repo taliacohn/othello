@@ -53,3 +53,7 @@ class GameView(ABC):
     @abstractmethod
     def display_play_again(self):
         pass 
+
+    @abstractmethod
+    def display_empty_line(self):
+        pass

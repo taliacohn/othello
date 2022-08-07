@@ -1,0 +1,29 @@
+- need class for AI player
+- function that chooses the best move in the current board
+
+def choose_move(self, board): #needs to pick the best move
+    --> need to check all the possible moves
+    for each possible move in the current board: - need to evaluate which move has the highest value
+        #first need to create a copy of the board, need to make the move in the board so you can evaluate the new board
+        new_board = the updated board after making the move (use deep copy!!! if you use shallow copy, will change original board)
+        board_value = minimax(new_board, self(as max player) opponent), #going to switch the player in every level of the game
+    return the move with the highest board_value 
+
+def minimax(self, board, max_player, min_player):
+    if board is in termiinal state: 
+        return 1/-1/0 if it is  win/loss/draw for AI player (AI player is max)
+
+    #need to evaluate all the possible moves and take the max/min
+    values = []
+    for each possible move for the max_player in the current board:
+        new_board = the updated board after making the move
+        #use recursion - call same function but switching the players 
+        board_value = minimax(new_board, min_player, max_player) #switch players - min becomes max and vice versa
+        #need to keep a list of all the values of the next moves
+        values.append(board_value)
+    
+    #after this loop, need to decide if you are the max or min player 
+    if self (self is AI player) == max_player:
+        return max(values)
+    else:
+        return min(values)

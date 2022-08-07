@@ -36,8 +36,8 @@ class Rules:
         """Checks if move is valid based on current board. Returns False if no valid moves
         available on board or returns list of valid moves"""
         self.valid_moves = []
-        for x in range(self.board_size):
-            for y in range(self.board_size):
+        for x in range(1, self.board_size+1):
+            for y in range(1, self.board_size+1):
                 if self.is_valid_move(x, y, curr_player) != False:
                     if (x, y) not in self.valid_moves:
                         self.valid_moves.append([x,y])
@@ -80,7 +80,7 @@ class Rules:
                 #     break #break out of while loop b/c can't go further on board
             #if not self.is_on_board(new_row, new_col):
                 #continue
-                if self.board.get_cell(new_row, new_col) == curr_player: #change pieces from curr player to other player
+                if self.is_on_board(new_row, new_col) and self.board.get_cell(new_row, new_col) == curr_player: #change pieces from curr player to other player
                     while new_row != row or new_col != col:
                         new_row -= x_direction
                         new_col -= y_direction
@@ -94,8 +94,8 @@ class Rules:
         """Counts amount of pieces each player has on the board at the end of every turn"""
         x_tiles = 0
         o_tiles = 0
-        for i in range(1, self.board_size):
-            for j in range(1, self.board_size):
+        for i in range(1, self.board_size+1):
+            for j in range(1, self.board_size+1):
                 if self.board.get_cell(i, j) == Symbols.X:
                     x_tiles += 1
                 elif self.board.get_cell(i, j) == Symbols.O:

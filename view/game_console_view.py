@@ -84,3 +84,7 @@ class GameConsoleView(GameView):
 
   def display_play_again(self):
     pass 
+
+  def display_empty_line(self):
+    print('\n')
+    
