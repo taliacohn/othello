@@ -46,7 +46,7 @@ class GameConsoleView(GameView):
     except: 
       print('Enter two numbers separated by a comma. For example, \'3, 2\'.')
       return self.get_move()
-
+    
   def display_computer_turn(self):
     print('---------------------------')
     print('The computer is thinking...')
