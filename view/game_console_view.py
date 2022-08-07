@@ -50,7 +50,7 @@ class GameConsoleView(GameView):
   def display_computer_turn(self):
     print('---------------------------')
     print('The computer is thinking...')
-    input('Press enter to see computers move')
+    input('Press enter to see the computer\'s move')
 
   def invalid_move(self):
     """If player makes makes an invalid move"""
