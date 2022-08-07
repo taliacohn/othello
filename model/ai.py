@@ -1,13 +1,13 @@
 from model.rules import Rules
 from model.player import Player
+from model.symbols import Symbols
 #from model.othello_game import OthelloGame
 from copy import deepcopy
 
 
 class AI(Player):
-    def __init__(self, symbol, board) -> None:
-        self.symbol = symbol
-        self.board = board
+    def __init__(self, symbol: Symbols, board) -> None:
+        super().__init__(symbol, board)
         self.rules = Rules(self.board)
         
     def ai_simple_move(self, curr_player):

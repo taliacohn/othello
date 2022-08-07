@@ -36,16 +36,28 @@ class GameConsoleView(GameView):
   def display_turn(self, curr_player):
     print(f'Player {self.symbols[curr_player]}: It\'s your turn.')
 
-  def get_move(self):
-    """Asks player for next move. Provide feedback 
+  def display_rules(self):
+    pass
+
+  def get_move(self): #add option to ask for hint
+    """Asks player for next move. Allow player to exit game or ask for hint. Provide feedback 
     if incorrect move inputted."""
-    try:
-      s = input('Enter your move (row, col): ').split(',')
+    try: 
+      s = input('Enter your move (row, col), \'exit\' to end game, or \'hint\' for a hint: ')
+      s1 = s.lower()
+      if s1 == 'exit':
+        return False
+      elif s1 == 'hint':
+        self.game.human.give_hint()
+    
+      s = s.split(', ')
       row, col = int(s[0]), int(s[1])
       return row, col
+
     except: 
       print('Enter two numbers separated by a comma. For example, \'3, 2\'.')
       return self.get_move()
+      
     
   def display_computer_turn(self):
     print('---------------------------')
@@ -70,3 +82,6 @@ class GameConsoleView(GameView):
 
   def display_exit_message(self):
     print('Thanks for playing.')
+
+  def display_play_again(self):
+    pass 

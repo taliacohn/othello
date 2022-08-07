@@ -1,15 +1,17 @@
-# from model.othello_game import OthelloGame
-# from model.board import Board
-# from model.symbols import Symbols
+from copy import deepcopy
+from model.rules import Rules
+from model.symbols import Symbols
 from model.player import Player
-#from model.rules import Rules
 
 class Human(Player):
     """This class defines a human player"""
-    def __init__(self, symbol) -> None:
-        self.symbol = symbol
-        
+    def __init__(self, symbol: Symbols, board) -> None:
+        super().__init__(symbol, board)
+        self.rules = Rules(self.board)
 
-    def give_hint(self):
-        pass
-        
+    def give_hint(self, curr_player):
+        lst_of_moves = self.rules.check_valid_moves(curr_player)
+        for row, col in lst_of_moves:
+            board_copy = deepcopy(self.rules.board.mat)
+            board_copy[row][col] = '.'
+        return board_copy

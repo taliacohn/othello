@@ -22,13 +22,14 @@ class GameController:
         players.append(Human(Symbols.O))
         #display player 2: you are O
       elif player_choice == 2:
-        players.append(Human(Symbols.X))
+        players.append(Human(Symbols.X, self.model.board))
         players.append(AI(Symbols.O, self.model.board))
       elif player_choice == 3:
         pass 
           #Minimax
       elif player_choice == 4:
         #display rules
+        #can ask for hint at any time
         pass
       elif player_choice == 5: #exit game 
         self.view.display_exit_message()
@@ -49,10 +50,14 @@ class GameController:
         
         self.view.display_turn(curr_player)
 
+        
         if isinstance(players[curr_player-1], AI):
-          self.view.display_computer_turn()
-          row, col = self.model.simple_ai.ai_simple_move(curr_player)
-          self.model.rules.make_move(row, col, curr_player)
+          if player_choice == 2:
+            self.view.display_computer_turn()
+            row, col = self.model.simple_ai.ai_simple_move(curr_player)
+            self.model.rules.make_move(row, col, curr_player)
+          elif player_choice == 3:
+            pass
         else:
           #try:
           row, col = self.view.get_move()

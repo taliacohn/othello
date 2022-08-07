@@ -1,9 +1,12 @@
 from model.ai import AI
 from model.board import Board
 from model.symbols import Symbols
+
 from datetime import datetime
 from model.results_text_file import ResultsTextFile
 from model.rules import Rules
+
+from model.human import Human
 
 class OthelloGame():
     """This class represents the Othello game, includes methods
@@ -16,6 +19,7 @@ class OthelloGame():
         self.save_game = ResultsTextFile(file_path)
         self.rules = Rules(self.board)
         self.simple_ai = AI(Symbols.O, self.board)
+        self.human = Human(Symbols, self.board)
         
     def new_board(self):
         """Displays a new board with four initial pieces"""
