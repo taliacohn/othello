@@ -9,8 +9,7 @@ class GameController:
   def __init__(self, view: GameView, model: OthelloGame) -> None:
     self.view = view
     self.model = model
-    self.simple_ai = AI()
-
+    
   def run_game(self):    
     self.view.welcome_message()
     while True: #new game until exit is selected
@@ -52,12 +51,12 @@ class GameController:
 
         if isinstance(players[curr_player-1], AI):
           self.view.display_computer_turn()
-          row, col = self.simple_ai.ai_simple_move(curr_player)
+          row, col = self.model.simple_ai.ai_simple_move(curr_player)
           self.model.rules.make_move(row, col, curr_player, board)
         else:
           row, col = self.view.get_move()
 
-          while self.model.rules.make_move(row, col, curr_player, board) == False:
+          while self.model.rules.make_move(row, col, curr_player) == False:
             self.view.invalid_move()
             row, col = self.view.get_move()
         
