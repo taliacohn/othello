@@ -5,10 +5,11 @@ from model.player import Player
 from copy import deepcopy
 
 class AI(Player):
-    def __init__(self, game_rules = Rules) -> None:
-        self.game = game_rules
+    def __init__(self, symbol) -> None:
+        self.symbol = symbol
         self.board = Board()
-
+        self.game = Rules(self.board)
+        
     def ai_simple_move(self, curr_player):
         lst_of_moves = self.game.check_valid_moves(curr_player) #get a list of possible moves 
         highest_score = -1

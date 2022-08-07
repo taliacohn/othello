@@ -21,7 +21,7 @@ class Rules:
         else:
             return 2
         
-    def make_move(self, row, col, curr_player, board):
+    def make_move(self, row, col, curr_player):
         """Updates the current board by placing the current players new pieces
         and changing any valid pieces"""
         change_pieces = self.is_valid_move(row, col, curr_player)
