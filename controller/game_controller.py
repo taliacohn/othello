@@ -54,11 +54,15 @@ class GameController:
           row, col = self.model.simple_ai.ai_simple_move(curr_player)
           self.model.rules.make_move(row, col, curr_player)
         else:
+          #try:
           row, col = self.view.get_move()
 
           while self.model.rules.make_move(row, col, curr_player) == False:
             self.view.invalid_move()
             row, col = self.view.get_move()
+          # except IndexError:
+          #     print('Enter numbers between 1-8. ')
+          #     self.view.get_move()
         
         self.model.rules.change_player()
 

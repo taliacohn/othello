@@ -14,6 +14,7 @@ class Board:
 
   def update_cell(self, row, col, player):
     self.mat[row-1][col-1] = player
+   
 
   def initial_position(self):
     """Starting position of initial 4 pieces on board"""
