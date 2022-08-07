@@ -39,38 +39,37 @@ class GameConsoleView(GameView):
   def display_rules(self):
     pass
 
-  def get_move(self): #add option to ask for hint
+  def get_move(self, curr_player): #add option to ask for hint
     """Asks player for next move. Allow player to exit game or ask for hint. Provide feedback 
     if incorrect move inputted."""
-    try: 
-      s = input('Enter your move (row, col), \'exit\' to end game, or \'hint\' for a hint: ')
-      s1 = s.lower()
-      if s1 == 'exit':
-        return False
-      elif s1 == 'hint':
-        self.game.human.give_hint()
     
-      s = s.split(', ')
-      row, col = int(s[0]), int(s[1])
-      return row, col
-
-    except: 
-      print('Enter two numbers separated by a comma. For example, \'3, 2\'.')
-      return self.get_move()
+    s = input('Enter your move (row, col), \'exit\' to end game, or \'hint\' for a hint: ')
+    s = s.lower()
+    if s == 'exit':
+      return 'exit'
+    elif s == 'hint':
+      return 'hint'
+    else:
+      try:
+        s = s.split(', ')
+        row, col = int(s[0]), int(s[1])
+        return row, col
+      except:
+        print('Enter two numbers separated by a comma. For example, \'3, 2\'.')
+        return self.get_move(curr_player)
       
-    
   def display_computer_turn(self):
     print('---------------------------')
     print('The computer is thinking...')
-    input('Press enter to see the computer\'s move')
+    input('Press enter to see the computer\'s move. ')
 
   def invalid_move(self):
     """If player makes makes an invalid move"""
     print('Not a valid move. Remember there needs to be a line between one of your pieces',
             'and the piece you put down, with your opponent\'s piece(s) in between.')
     
-  def draw_board(self):
-    self.board_view.draw_board()
+  def draw_board(self, mat):
+    self.board_view.draw_board(mat)
 
   def display_winner(self, player, scores):
     if player == 'X':
@@ -81,7 +80,7 @@ class GameConsoleView(GameView):
       print(f'The game ended in a tie. Both players have {scores[1]} points!')
 
   def display_exit_message(self):
-    print('Thanks for playing.')
+    print('Thanks for playing.\n')
 
   def display_play_again(self):
     pass 

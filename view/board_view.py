@@ -6,6 +6,6 @@ class BoardView(ABC):
         self.board = board
     
     @abstractmethod
-    def draw_board(self):
+    def draw_board(self, mat):
         pass
     

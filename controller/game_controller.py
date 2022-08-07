@@ -17,9 +17,9 @@ class GameController:
       player_choice = self.view.player_options()
       #scores=[0,0]
       if player_choice == 1:
-        players.append(Human(Symbols.X))
+        players.append(Human(Symbols.X, self.model.board))
         #display player 1: you are X
-        players.append(Human(Symbols.O))
+        players.append(Human(Symbols.O, self.model.board))
         #display player 2: you are O
       elif player_choice == 2:
         players.append(Human(Symbols.X, self.model.board))
@@ -41,16 +41,15 @@ class GameController:
       self.model.place_initial_pieces()
       
       while True: 
-        board = self.view.draw_board()
+        self.view.draw_board(self.model.board.mat)
         scores = self.model.rules.calculate_score()
         self.view.display_score(scores)
         curr_player = self.model.rules.curr_player #gives 1 or 2 for symbol
-        if self.model.rules.is_terminated(curr_player, scores=[0,0]) == False:
+        if self.model.rules.is_terminated(curr_player, scores) == False:
           break
         
         self.view.display_turn(curr_player)
 
-        
         if isinstance(players[curr_player-1], AI):
           if player_choice == 2:
             self.view.display_computer_turn()
@@ -60,21 +59,29 @@ class GameController:
             pass
         else:
           #try:
-          row, col = self.view.get_move()
-
-          while self.model.rules.make_move(row, col, curr_player) == False:
-            self.view.invalid_move()
-            row, col = self.view.get_move()
-          # except IndexError:
-          #     print('Enter numbers between 1-8. ')
-          #     self.view.get_move()
+          while True:
+            move = self.view.get_move(curr_player)
+            if move == 'exit':
+              self.view.display_exit_message()
+              break 
+            elif move == 'hint': 
+              hint_board = self.model.human.give_hint(curr_player)
+              self.view.draw_board(hint_board)
+            else:
+              while self.model.rules.make_move(move[0], move[1], curr_player) == False:
+                self.view.invalid_move()
+                move = self.view.get_move(curr_player)
+              break
+            
+          
         
         self.model.rules.change_player()
 
-      player = self.model.find_winner()
-      final_scores = self.model.rules.calculate_score()
-      self.view.display_winner(player, final_scores)
-      self.model.write_results()
+      if self.model.rules.is_terminated(curr_player, scores) == False:
+        player = self.model.find_winner()
+        final_scores = self.model.rules.calculate_score()
+        self.view.display_winner(player, final_scores)
+        self.model.write_results()
    
 
 
