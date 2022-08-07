@@ -23,7 +23,7 @@ class GameController:
         #display player 2: you are O
       elif player_choice == 2:
         players.append(Human(Symbols.X))
-        players.append(AI(Symbols.O))
+        players.append(AI(Symbols.O, self.model.board))
       elif player_choice == 3:
         pass 
           #Minimax
@@ -52,7 +52,7 @@ class GameController:
         if isinstance(players[curr_player-1], AI):
           self.view.display_computer_turn()
           row, col = self.model.simple_ai.ai_simple_move(curr_player)
-          self.model.rules.make_move(row, col, curr_player, board)
+          self.model.rules.make_move(row, col, curr_player)
         else:
           row, col = self.view.get_move()
 

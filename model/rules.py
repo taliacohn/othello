@@ -94,8 +94,8 @@ class Rules:
         """Counts amount of pieces each player has on the board at the end of every turn"""
         x_tiles = 0
         o_tiles = 0
-        for i in range(self.board_size):
-            for j in range(self.board_size):
+        for i in range(1, self.board_size):
+            for j in range(1, self.board_size):
                 if self.board.get_cell(i, j) == Symbols.X:
                     x_tiles += 1
                 elif self.board.get_cell(i, j) == Symbols.O:
