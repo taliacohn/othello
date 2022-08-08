@@ -14,8 +14,8 @@ class OthelloGame():
     #DIRECTIONS = [[0,1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]]
 
     def __init__(self, board_size=8, file_path="results_of_game.txt") -> None:
-        self.board = Board(board_size)
         self.board_size = board_size
+        self.board = Board(board_size)
         self.save_game = ResultsTextFile(file_path)
         self.rules = Rules(self.board, board_size)
         self.simple_ai = AI(Symbols.O, self.board, self.board_size)

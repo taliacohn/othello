@@ -65,3 +65,7 @@ class GameView(ABC):
     @abstractmethod
     def no_moves(self):
         pass
+
+    @abstractmethod
+    def display_rules(self):
+        pass

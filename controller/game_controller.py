@@ -1,6 +1,6 @@
 from model.ai import AI
-from model.human import Human
-from model.symbols import Symbols
+# from model.human import Human
+# from model.symbols import Symbols
 from view.game_view import GameView
 from model.othello_game import OthelloGame
 
@@ -14,6 +14,7 @@ class GameController:
     #self.view.welcome_message()
     while True: #new game until exit is selected
       players = []
+      self.view.display_empty_line()
       player_choice = self.view.player_options()
       #scores=[0,0]
       if player_choice == 1:
@@ -34,7 +35,8 @@ class GameController:
       elif player_choice == 4:
         #display rules
         #can ask for hint at any time
-        pass
+        self.view.display_rules()
+        player_choice = self.view.player_options()
       elif player_choice == 5: #exit game 
         self.view.display_exit_message()
         return False
@@ -44,7 +46,8 @@ class GameController:
       self.model.new_board()
       self.model.place_initial_pieces()
       
-      while True: 
+      game_mode = True
+      while game_mode: 
         self.view.display_empty_line()
         self.view.draw_board(self.model.board.mat)
         scores = self.model.rules.calculate_score()
@@ -68,11 +71,15 @@ class GameController:
             pass
         else:
           #try:
-          while True:
+          move = True
+          while move:
             move = self.view.get_move(curr_player)
             if move == 'exit':
+              self.view.display_empty_line()
               self.view.display_exit_message()
-              break 
+              move = False
+              game_mode = False
+              #return self.model.rules.is_terminated(curr_player) == True
             elif move == 'hint': 
               hint_board = self.model.human.give_hint(curr_player)
               if hint_board == 1:
@@ -95,10 +102,7 @@ class GameController:
         self.view.display_winner(player, final_scores)
         self.view.display_empty_line()
         self.model.write_results()
-   
 
-
-    
-
-
-              
+      if self.view.display_play_again() == 1:
+        self.view.display_exit_message()
+        break
