@@ -6,7 +6,7 @@ class Rules:
     NEXT_PLAYER = 3
     DIRECTIONS = [[0,1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]]
     
-    def __init__(self, board: Board, board_size=8) -> None:
+    def __init__(self, board: Board, board_size) -> None:
         self.board = board
         self.board_size = board_size
         if random.randint(0, 1) == 0:

@@ -1,3 +1,4 @@
+from typing_extensions import Self
 from model.symbols import Symbols
 from view.game_view import GameView
 from view.board_console_view import BoardConsoleView
@@ -11,10 +12,27 @@ class GameConsoleView(GameView):
     self.board_view = BoardConsoleView(game.board)
     self.game = game
 
-  def welcome_message(self):
+  # def welcome_message(self):
+  #   print('-------------------------------------------')
+  #   print('------------Welcome to Reversi!------------')
+  #   print('-------------------------------------------')
+
+  def welcome_message():
     print('-------------------------------------------')
     print('------------Welcome to Reversi!------------')
     print('-------------------------------------------')
+    try:
+      board_size = int(input('Enter board size: '))
+    except ValueError:
+      board_size = int(input('Please enter a positive number that is above 3 and is a multiple of 2'
+      '(ex/ 4, 8, 12).\nEnter board size: '))
+    if board_size > 2 and board_size % 2 == 0:
+      return board_size
+    else:
+      return int(input('Please enter a positive number above 2 (ex/ 8).\nEnter board size: '))
+
+  def no_moves(self):
+    print('No valid moves. Switching players.')
 
   def player_options(self):
     """Player inputs how many players - 1 vs 2 human players"""

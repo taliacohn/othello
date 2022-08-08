@@ -17,9 +17,9 @@ class OthelloGame():
         self.board = Board(board_size)
         self.board_size = board_size
         self.save_game = ResultsTextFile(file_path)
-        self.rules = Rules(self.board)
-        self.simple_ai = AI(Symbols.O, self.board)
-        self.human = Human(Symbols, self.board)
+        self.rules = Rules(self.board, board_size)
+        self.simple_ai = AI(Symbols.O, self.board, self.board_size)
+        self.human = Human(Symbols, self.board, self.board_size)
         
     def new_board(self):
         """Displays a new board with four initial pieces"""
@@ -46,7 +46,7 @@ class OthelloGame():
         time = today.strftime('%m/%d/%Y %H:%M:%S')
         self.results = f'Date and time of game: {time} | '
         self.results += f'Winner of game: {self.winner} | '
-        self.results += f'Player X: {self.score[0]}, Player O: {self.score[1]}'
+        self.results += f'Player X: {self.score[0]}, Player O: {self.score[1]}\n'
         
         return self.save_game.save_results(self.results)
         

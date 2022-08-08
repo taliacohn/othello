@@ -5,7 +5,7 @@ class Player:
     def __init__(self, symbol: Symbols, board) -> None:
         self.symbol = symbol
         self.board = board
-        self.rules = Rules(self.board)
+        #self.rules = Rules(self.board, board_size)
         
         
         

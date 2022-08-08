@@ -6,8 +6,12 @@ class GameView(ABC):
     def __init__(self, game) -> None:
         self.game = game
 
-    @abstractmethod
-    def welcome_message(self):
+    # @abstractmethod
+    # def welcome_message(self):
+    #     pass
+
+    @staticmethod
+    def welcome_message():
         pass
 
     @abstractmethod
@@ -56,4 +60,8 @@ class GameView(ABC):
 
     @abstractmethod
     def display_empty_line(self):
+        pass
+
+    @abstractmethod
+    def no_moves(self):
         pass

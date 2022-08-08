@@ -11,19 +11,23 @@ class GameController:
     self.model = model
     
   def run_game(self):    
-    self.view.welcome_message()
+    #self.view.welcome_message()
     while True: #new game until exit is selected
       players = []
       player_choice = self.view.player_options()
       #scores=[0,0]
       if player_choice == 1:
-        players.append(Human(Symbols.X, self.model.board))
+        players.append(self.model.human)
+          #Human(Symbols.X, self.model.board, self.model.board_size))
         #display player 1: you are X
-        players.append(Human(Symbols.O, self.model.board))
+        players.append(self.model.human)
+          #Human(Symbols.O, self.model.board, self.model.board_size))
         #display player 2: you are O
       elif player_choice == 2:
-        players.append(Human(Symbols.X, self.model.board))
-        players.append(AI(Symbols.O, self.model.board))
+        players.append(self.model.human)
+          #Human(Symbols.X, self.model.board, self.model.board_size))
+        players.append(self.model.simple_ai)
+          #AI(Symbols.O, self.model.board, self.model.board_size))
       elif player_choice == 3:
         pass 
           #Minimax
@@ -54,8 +58,12 @@ class GameController:
         if isinstance(players[curr_player-1], AI):
           if player_choice == 2:
             self.view.display_computer_turn()
-            row, col = self.model.simple_ai.ai_simple_move(curr_player)
-            self.model.rules.make_move(row, col, curr_player)
+            move = self.model.simple_ai.ai_simple_move(curr_player)
+            if move == 1:
+              self.view.no_moves()
+              continue
+            else:
+              self.model.rules.make_move(move[0], move[1], curr_player)
           elif player_choice == 3:
             pass
         else:
@@ -67,14 +75,17 @@ class GameController:
               break 
             elif move == 'hint': 
               hint_board = self.model.human.give_hint(curr_player)
-              self.view.draw_board(hint_board)
+              if hint_board == 1:
+                self.view.no_moves()
+                continue
+              else:
+                self.view.draw_board(hint_board)
+                self.view.display_empty_line()
             else:
               while self.model.rules.make_move(move[0], move[1], curr_player) == False:
                 self.view.invalid_move()
                 move = self.view.get_move(curr_player)
               break
-            
-          
         
         self.model.rules.change_player()
 
@@ -82,6 +93,7 @@ class GameController:
         player = self.model.find_winner()
         final_scores = self.model.rules.calculate_score()
         self.view.display_winner(player, final_scores)
+        self.view.display_empty_line()
         self.model.write_results()
    
 
