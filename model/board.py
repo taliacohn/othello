@@ -34,7 +34,7 @@ class Board:
       for j in range(1, self.size):
         self.update_cell(i, j, self.EMPTY_CELL)
     
-    self.mat
+    return self.mat
 
   def example_board(self):
     split_board = self.size//2

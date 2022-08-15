@@ -1,4 +1,5 @@
 from model.ai import AI
+from model.ai_minimax import AdvancedAI
 # from model.human import Human
 # from model.symbols import Symbols
 from view.game_view import GameView
@@ -17,21 +18,24 @@ class GameController:
       self.view.display_empty_line()
       player_choice = self.view.player_options()
       #scores=[0,0]
+      players.append(self.model.human)
       if player_choice == 1:
-        players.append(self.model.human)
-          #Human(Symbols.X, self.model.board, self.model.board_size))
-        #display player 1: you are X
+        # players.append(self.model.human)
+        #   #Human(Symbols.X, self.model.board, self.model.board_size))
+        # #display player 1: you are X
         players.append(self.model.human)
           #Human(Symbols.O, self.model.board, self.model.board_size))
         #display player 2: you are O
       elif player_choice == 2:
-        players.append(self.model.human)
-          #Human(Symbols.X, self.model.board, self.model.board_size))
+        # players.append(self.model.human)
+        #   #Human(Symbols.X, self.model.board, self.model.board_size))
         players.append(self.model.simple_ai)
           #AI(Symbols.O, self.model.board, self.model.board_size))
       elif player_choice == 3:
-        pass 
-          #Minimax
+        # players.append(self.model.human)
+        #   #Human(Symbols.X, self.model.board, self.model.board_size))
+        players.append(self.model.advanced_ai)
+          #AI(Symbols.O, self.model.board, self.model.board_size))
       elif player_choice == 4:
         #display rules
         #can ask for hint at any time
@@ -40,6 +44,7 @@ class GameController:
       elif player_choice == 5: #exit game 
         self.view.display_exit_message()
         return False
+
       
       #initialize board
       self.model.rules.curr_player = self.model.rules.first_move() #which symbol goes first
@@ -58,17 +63,18 @@ class GameController:
         
         self.view.display_turn(curr_player)
 
-        if isinstance(players[curr_player-1], AI):
+        if isinstance(players[curr_player-1], AI) or isinstance(players[curr_player-1], AdvancedAI):
+          self.view.display_computer_turn()
           if player_choice == 2:
-            self.view.display_computer_turn()
             move = self.model.simple_ai.ai_simple_move(curr_player)
-            if move == 1:
-              self.view.no_moves()
-              continue
-            else:
-              self.model.rules.make_move(move[0], move[1], curr_player)
           elif player_choice == 3:
-            pass
+            move = self.model.advanced_ai.choose_move()
+          if move == 1:
+            self.view.no_moves()
+            continue
+          else:
+            self.model.rules.make_move(move[0], move[1], curr_player)
+          
         else:
           #try:
           move = True
@@ -97,7 +103,7 @@ class GameController:
         self.model.rules.change_player()
 
       if self.model.rules.is_terminated(curr_player, scores) == False:
-        player = self.model.find_winner()
+        player = self.model.rules.find_winner()
         final_scores = self.model.rules.calculate_score()
         self.view.display_winner(player, final_scores)
         self.view.display_empty_line()

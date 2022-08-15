@@ -1,7 +1,7 @@
 from model.rules import Rules
 from model.player import Player
 from model.symbols import Symbols
-#from model.othello_game import OthelloGame
+
 from copy import deepcopy
 
 

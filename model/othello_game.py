@@ -7,6 +7,7 @@ from model.results_text_file import ResultsTextFile
 from model.rules import Rules
 
 from model.human import Human
+from model.ai_minimax import AdvancedAI
 
 class OthelloGame():
     """This class represents the Othello game, includes methods
@@ -20,6 +21,7 @@ class OthelloGame():
         self.rules = Rules(self.board, board_size)
         self.simple_ai = AI(Symbols.O, self.board, self.board_size)
         self.human = Human(Symbols, self.board, self.board_size)
+        self.advanced_ai = AdvancedAI(Symbols.O, self.board, self.board_size)
         
     def new_board(self):
         """Displays a new board with four initial pieces"""
@@ -29,23 +31,12 @@ class OthelloGame():
         """Places four starting pieces on the board"""
         return self.board.initial_position()
 
-    def find_winner(self):
-        score = self.rules.calculate_score()
-        if score[0] > score[1]:
-            self.winner = 'X'
-        elif self.score[1] > self.score[0]:
-            self.winner = 'O'
-        else:
-            self.winner = 'It\'s a tie!'
-
-        return self.winner
-
     def write_results(self):
         self.score = self.rules.calculate_score()
         today = datetime.now()
         time = today.strftime('%m/%d/%Y %H:%M:%S')
         self.results = f'Date and time of game: {time} | '
-        self.results += f'Winner of game: {self.winner} | '
+        self.results += f'Winner of game: {self.rules.winner} | '
         self.results += f'Player X: {self.score[0]}, Player O: {self.score[1]}\n'
         
         return self.save_game.save_results(self.results)

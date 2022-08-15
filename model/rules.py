@@ -117,3 +117,14 @@ class Rules:
         """Changes to the next player"""
         self.curr_player = self.NEXT_PLAYER - self.curr_player
         return self.curr_player
+
+    def find_winner(self):
+        score = self.calculate_score()
+        if score[0] > score[1]:
+            self.winner = 1
+        elif score[1] > score[0]:
+            self.winner = 2
+        else:
+            self.winner = 3
+
+        return self.winner
