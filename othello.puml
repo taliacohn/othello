@@ -2,37 +2,71 @@
 
 package Model <<rectangle>>{
     class OthelloGame{
+        board_size
         board
-        curr_player
-        change_player()
-        make_move()
-        is_valid_move(user_input)
-        check_winner(score)
+        save_game
+        GameRules
+        Simple_ai
+        Human
+        AdvancedAI
+        new_board()
+        place_initial_pieces()
+        write_results()
     }
     class Board{
         size
         matrix
         get_cell()
         update_cells()
+        initial_position()
+        new_board()
+        example_board()
+        example_board_with_move()
+        example_board_hint()
     }
-    class Exception{
-        pass
+    class Player{
+        symbol
+        board
     }
-    class SaveGame{
-        pass
+    class Human{
+        GameRules
+        give_hint(curr_player)
+    }
+    class AdvancedAI{
+        player
+        opponent
+        GameRules
+        choose_move(depth)
+        minimax(board, depth, max_player, min_player)
+        weighted_score(row, col)
+        calculate_score()
+    }
+    class AI{
+        GameRules
+        ai_simple_move(curr_player)
+    }
+    class ResultsTextFile{
+        file_path
+        save_results(results)
     }
     enum Player{
         B
         W 
     }
-    class RobotPlayer{
-        pass
-    }
-    class HumanPlayer{
-        pass
-    }
     class GameRules{
-        pass
+        NEXT_PLAYER
+        DIRECTIONS
+        board
+        board_size 
+        first_move()
+        make_move(row, col, curr_player)
+        check_valid_moves(curr_player)
+        is_on_board(row, col)
+        is_valid_move(row, col, curr_player)
+        calculate_score()
+        is_terminated(curr_player, scores)
+        change_player()
+        find_winner()
     }
 }
 package View <<rectangle>> {
@@ -44,18 +78,45 @@ package View <<rectangle>> {
         game 
         get_move()
         draw_board()
+        welcome_message() @staticmethod
+        no_moves()
+        player_options()
+        invalid_choice()
+        display_score()
+        display_turn()
+        display_computer_turn()
+        invalid_move()
         display_winner(player)
+        display_exit_message()
+        display_play_again()
+        display_empty_line()
+        display_rules()
+        get_depth()
     }
     class BoardConsoleView{
         board 
-        draw_board()
+        draw_board(mat)
     }
     class GameConsoleView{
+        symbols
+        board_console_view
         game 
-        board_view
+        welcome_message()
+        no_moves()
+        player_options()
+        invalid_choice()
+        display_score()
+        display_turn()
         get_move()
-        draw_board()
-        display_winner()
+        display_computer_turn()
+        invalid_move()
+        draw_board(mat)
+        display_winner(player, scores)
+        display_exit_message()
+        display_play_again()
+        display_empty_line()
+        display_rules()
+        get_depth()
     }
 }
 package Controller <<rectangle>>{
@@ -67,7 +128,13 @@ package Controller <<rectangle>>{
 }
 OthelloGame *-- Board: contains >
 OthelloGame <... Player: uses >
-GameConsoleView <-- Gameview 
+OthelloGame --> GameRules
+OthelloGame --> AI: contains >
+OthelloGame --> AdvancedAI: contains >
+GameConsoleView <-- GameView 
+Player <-- Human
+Player <-- AI
+Player <-- AdvancedAI
 BoardView <-- BoardConsoleView
 BoardConsoleView <-- Board: uses <
 OthelloGame <-- Board: uses <
