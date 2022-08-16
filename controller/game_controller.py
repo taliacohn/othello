@@ -1,10 +1,8 @@
 from model.ai import AI
 from model.ai_minimax import AdvancedAI
-# from model.human import Human
-# from model.symbols import Symbols
 from view.game_view import GameView
-from model.othello_game import OthelloGame
 
+from model.othello_game import OthelloGame
 
 class GameController:
   def __init__(self, view: GameView, model: OthelloGame) -> None:
@@ -12,39 +10,25 @@ class GameController:
     self.model = model
     
   def run_game(self):    
-    #self.view.welcome_message()
     while True: #new game until exit is selected
       players = []
       self.view.display_empty_line()
       player_choice = self.view.player_options()
-      #scores=[0,0]
+
       players.append(self.model.human)
       if player_choice == 1:
-        # players.append(self.model.human)
-        #   #Human(Symbols.X, self.model.board, self.model.board_size))
-        # #display player 1: you are X
         players.append(self.model.human)
-          #Human(Symbols.O, self.model.board, self.model.board_size))
-        #display player 2: you are O
       elif player_choice == 2:
-        # players.append(self.model.human)
-        #   #Human(Symbols.X, self.model.board, self.model.board_size))
         players.append(self.model.simple_ai)
-          #AI(Symbols.O, self.model.board, self.model.board_size))
       elif player_choice == 3:
-        # players.append(self.model.human)
-        #   #Human(Symbols.X, self.model.board, self.model.board_size))
+        depth = self.view.get_depth()
         players.append(self.model.advanced_ai)
-          #AI(Symbols.O, self.model.board, self.model.board_size))
       elif player_choice == 4:
-        #display rules
-        #can ask for hint at any time
         self.view.display_rules()
         player_choice = self.view.player_options()
-      elif player_choice == 5: #exit game 
+      elif player_choice == 5: 
         self.view.display_exit_message()
         return False
-
       
       #initialize board
       self.model.rules.curr_player = self.model.rules.first_move() #which symbol goes first
@@ -68,7 +52,8 @@ class GameController:
           if player_choice == 2:
             move = self.model.simple_ai.ai_simple_move(curr_player)
           elif player_choice == 3:
-            move = self.model.advanced_ai.choose_move()
+            move = self.model.advanced_ai.choose_move(depth)
+
           if move == 1:
             self.view.no_moves()
             continue
@@ -112,3 +97,4 @@ class GameController:
       if self.view.display_play_again() == 1:
         self.view.display_exit_message()
         break
+

@@ -149,4 +149,7 @@ class GameConsoleView(GameView):
     print('Good luck!')
     print('')
 
+  def get_depth(self):
+    depth = int(input("Enter level of difficulty (any number): "))
+    return depth
    

@@ -4,32 +4,27 @@ from model.rules import Rules
 
 from model.player import Player
 from model.symbols import Symbols
-from model.board import Board
 
 class AdvancedAI(Player):
-    def __init__(self, symbol: Symbols, board, board_size, depth: int=2) -> None:
+    def __init__(self, symbol: Symbols, board, board_size) -> None:
         super().__init__(symbol, board)
         self.player = Symbols.O
         self.opponent = Symbols.X
         self.rules = Rules(board, board_size)
-        self.depth = depth
         
-    def choose_move(self):
+    def choose_move(self, depth: int=2):
         available_moves = self.rules.check_valid_moves(self.player)
         best_value = float(-inf)
         if available_moves:
             for (row, col) in available_moves:
                 board_copy = deepcopy(self)
                 board_copy.rules.make_move(row, col, self.player)
-                # self.board_copy = deepcopy(self.rules.board.mat)
-                # #new_board = self.rules.make_move(row, col, self.player)
-                # self.rules.make_move(row, col, self.player)
-                board_value = self.minimax(board_copy, self.depth, self.player, self.opponent)
+                board_value = self.minimax(board_copy, depth, self.player, self.opponent)
                 if board_value > best_value:
                     best_move = (row, col)
-                    self.best_value = board_value
+                    best_value = board_value
                 
-            return best_move
+                return best_move
             
         else: 
             return 1
@@ -47,30 +42,22 @@ class AdvancedAI(Player):
             if max_player == min_player:
                 return 0
 
-            # case = self.rules.find_winner() #make new fxn 
-            # if case == 1: #human won 
-            #     return -1
-            # if case == 2: #AI won
-            #     return 1 #player is maximizing 
-            # if case == 3: #tie
-            #     return 0
-
         valid_moves = self.rules.check_valid_moves(max_player)
         values = []
         if valid_moves == False:
-            return self.minimax(depth, new_board, min_player, max_player)
+            return self.minimax(depth, board, min_player, max_player)
         else:
             for (row, col) in valid_moves:
-                new_board = deepcopy(self)
-                new_board.rules.make_move(row, col, max_player)
-                board_value = self.minimax(new_board, depth - 1, min_player, max_player) #change player 
+                board_copy = deepcopy(self)
+                board_copy.rules.make_move(row, col, max_player)
+                board_value = self.minimax(board_copy, depth-1, min_player, max_player) #change player 
                 values.append(board_value)
-
+        
             if self.player == max_player:
                 return max(values)
             else:
                 return min(values)
-        
+
     def weighted_score(self, row, col):
         """Assigns weights to tiles based on advantage"""
         board_size = self.rules.board_size

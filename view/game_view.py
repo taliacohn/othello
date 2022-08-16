@@ -69,3 +69,8 @@ class GameView(ABC):
     @abstractmethod
     def display_rules(self):
         pass
+
+    @abstractmethod
+    def get_depth(self):
+        pass
+    
