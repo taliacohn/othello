@@ -32,6 +32,7 @@ class OthelloGame():
         return self.board.initial_position()
 
     def write_results(self):
+        """Saves results to a txt file"""
         self.score = self.rules.calculate_score()
         today = datetime.now()
         time = today.strftime('%m/%d/%Y %H:%M:%S')

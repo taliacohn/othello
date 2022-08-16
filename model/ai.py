@@ -11,6 +11,8 @@ class AI(Player):
         self.rules = Rules(self.board, board_size)
         
     def ai_simple_move(self, curr_player):
+        """Look at scores after looping through all valid moves. Choose move with highest score.
+        One step look ahead."""
         lst_of_moves = self.rules.check_valid_moves(curr_player) #get a list of possible moves 
         if lst_of_moves == False:
             return 1

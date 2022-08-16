@@ -62,30 +62,21 @@ class Rules:
 
         if self.board.get_cell(row, col) != self.board.EMPTY_CELL or not self.is_on_board(row, col):
             return False
-        #self.board.update_cell(row, col, curr_player)
 
-        #loop through list of lists
-        #moves by adding first value to x and second value to y
         for x_direction, y_direction in self.DIRECTIONS:
             new_row, new_col = row, col
             new_row += x_direction
             new_col += y_direction
-            # if not self.is_on_board(x, y):
-            #     continue
-            #continue while the other players pieces are in that line
+
             while self.is_on_board(new_row, new_col) and self.board.get_cell(new_row, new_col) == other_player:
                 new_row += x_direction
                 new_col += y_direction
-                # if not self.is_on_board(x, y):
-                #     break #break out of while loop b/c can't go further on board
-            #if not self.is_on_board(new_row, new_col):
-                #continue
                 if self.is_on_board(new_row, new_col) and self.board.get_cell(new_row, new_col) == curr_player: #change pieces from curr player to other player
                     while new_row != row or new_col != col:
                         new_row -= x_direction
                         new_col -= y_direction
                         pieces_to_change.append([new_row, new_col])
-        if len(pieces_to_change) == 0: #not valid move if no pieces were changed 
+        if len(pieces_to_change) == 0: 
             return False
 
         return pieces_to_change
@@ -105,6 +96,7 @@ class Rules:
         return self.scores
 
     def is_terminated(self, curr_player, scores=[0,0]):
+        """Returns True if game is able to continue and False if game is over"""
         if sum(scores) == (self.board_size ** 2):
             return False
         elif self.check_valid_moves(curr_player) == False:

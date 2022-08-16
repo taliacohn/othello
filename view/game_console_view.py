@@ -1,10 +1,6 @@
-from typing_extensions import Self
-from model.symbols import Symbols
 from view.game_view import GameView
 from view.board_console_view import BoardConsoleView
 from model.othello_game import OthelloGame
-from model.board import Board
-
 
 class GameConsoleView(GameView):
   symbols = {0: ' ', 1: 'X', 2: 'O'}
@@ -13,14 +9,9 @@ class GameConsoleView(GameView):
     self.board_view = BoardConsoleView(game.board)
     self.game = game
 
-  # def welcome_message(self):
-  #   print('-------------------------------------------')
-  #   print('------------Welcome to Reversi!------------')
-  #   print('-------------------------------------------')
-
-  def board_size_error():
-    print('Please enter a positive number that is above 3 and is a multiple of 2'
-      '(ex/ 4, 8, 12).')
+  # def board_size_error():
+  #   print('Please enter a positive number that is above 3 and is a multiple of 2'
+  #     '(ex/ 4, 8, 12).')
 
   def welcome_message():
     print('-------------------------------------------')
@@ -150,6 +141,11 @@ class GameConsoleView(GameView):
     print('')
 
   def get_depth(self):
-    depth = int(input("Enter level of difficulty (any number): "))
-    return depth
+    try:
+      depth = int(input("Enter level of difficulty (any number): "))
+      return depth
+    except:
+      if depth != int:
+        print('Invalid response. Numbers only.')
+        depth = int(input("Enter level of difficulty (any number): "))
    

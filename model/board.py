@@ -37,6 +37,7 @@ class Board:
     return self.mat
 
   def example_board(self):
+    """Used for rules"""
     split_board = self.size//2
     ex_board = deepcopy(self.mat)
     ex_board[split_board-1][split_board-2] = Symbols.O

@@ -13,6 +13,7 @@ class AdvancedAI(Player):
         self.rules = Rules(board, board_size)
         
     def choose_move(self, depth: int=2):
+        """Find best move from AI player after looking ahead"""
         available_moves = self.rules.check_valid_moves(self.player)
         best_value = float(-inf)
         if available_moves:
@@ -30,6 +31,7 @@ class AdvancedAI(Player):
             return 1
 
     def minimax(self, board, depth, max_player, min_player): 
+        """Recursive function based on depth provided by player. Returns min or max value depending on player."""
         if depth == 0 or self.rules.is_terminated(self.player) == False:
             scores = self.calculate_score()
             max_player = scores[1]
