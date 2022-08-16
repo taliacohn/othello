@@ -3,3 +3,5 @@ Date and time of game: 08/07/2022 19:26:21 | Winner of game: X | Player X: 10, P
 Date and time of game: 08/07/2022 23:00:45 | Winner of game: X | Player X: 15, Player O: 1
 Date and time of game: 08/07/2022 23:06:59 | Winner of game: X | Player X: 15, Player O: 1
 Date and time of game: 08/15/2022 18:22:32 | Winner of game: 2 | Player X: 7, Player O: 9
+Date and time of game: 08/15/2022 21:12:30 | Winner of game: 1 | Player X: 11, Player O: 5
+Date and time of game: 08/15/2022 21:30:46 | Winner of game: 1 | Player X: 26, Player O: 0
