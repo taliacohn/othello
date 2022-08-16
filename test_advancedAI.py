@@ -4,12 +4,12 @@ from model.symbols import Symbols
 from model.board import Board
 
 class TestAI(unittest.TestCase):
-    # @classmethod
-    # def setUpClass(cls):
-    #     cls.game = OthelloGame(4)
+    @classmethod
+    def setUpClass(cls):
+        cls.game = OthelloGame(4)
 
-    def test_simple_ai_move(self):
-        #actual_moves = self.game.rules.check_valid_moves(Symbols.O)
+    def test_advanced_ai_move(self):
+        actual_moves = self.game.rules.check_valid_moves(Symbols.O)
         game = OthelloGame(4)
         game.place_initial_pieces()
         game.rules.curr_player = Symbols.O
